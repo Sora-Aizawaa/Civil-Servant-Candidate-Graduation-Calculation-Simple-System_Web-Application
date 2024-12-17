@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kalkulator SKD & SKB</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        background-color: #2c3e50;
+        color: #fff;
+      }
+      .calculator {
+        background-color: #34495e;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        width: 350px;
+        text-align: center;
+      }
+      .calculator h2 {
+        margin-bottom: 10px;
+        font-size: 20px;
+      }
+      input,
+      button {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0;
+        border-radius: 5px;
+        border: none;
+        box-sizing: border-box;
+      }
+      input {
+        background: #ecf0f1;
+        color: #2c3e50;
+        font-size: 16px;
+      }
+      button {
+        background-color: #e74c3c;
+        color: #fff;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      button:hover {
+        background-color: #c0392b;
+      }
+      .output,
+      .ranking {
+        margin-top: 10px;
+        background-color: #ecf0f1;
+        color: #2c3e50;
+        padding: 10px;
+        border-radius: 5px;
+        font-weight: bold;
+        text-align: left;
+      }
+      .ranking ol {
+        padding-left: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="calculator">
+      <h2>KALKULATOR SKD & SKB</h2>
+      <input type="text" id="namaInput" placeholder="Masukkan Nama" />
+      <input type="number" id="skdInput" placeholder="Nilai SKD (0 - 550)" />
+      <input type="number" id="skbInput" placeholder="Nilai SKB (0 - 500)" />
+      <button onclick="hitungNilai()">Hitung</button>
+
+      <div class="output">
+        <p>Hasil SKD: <span id="hasilSKD">0</span></p>
+        <p>Hasil SKB: <span id="hasilSKB">0</span></p>
+        <p>Total Nilai: <span id="totalNilai">0</span></p>
+      </div>
+
+      <div class="ranking">
+        <h3>Ranking Peserta</h3>
+        <ol id="rankingList"></ol>
+      </div>
+    </div>
+
+    <script>
+      // Inisialisasi array untuk menyimpan data peserta
+      let peserta = [];
+
+      function hitungNilai() {
+        // Ambil input nama, SKD, dan SKB
+        let nama = document.getElementById("namaInput").value.trim();
+        let skd = parseFloat(document.getElementById("skdInput").value);
+        let skb = parseFloat(document.getElementById("skbInput").value);
+
+        // Validasi input
+        if (!nama) {
+          alert("Nama tidak boleh kosong!");
+          return;
+        }
+        if (isNaN(skd) || skd < 0 || skd > 550) {
+          alert("Nilai SKD harus antara 0 dan 550!");
+          return;
+        }
+        if (isNaN(skb) || skb < 0 || skb > 500) {
+          alert("Nilai SKB harus antara 0 dan 500!");
+          return;
+        }
+
+        // Hitung hasil SKD, SKB, dan total nilai
+        let hasilSKD = (skd / 550) * 100 * 0.4;
+        let hasilSKB = (skb / 500) * 100 * 0.6;
+        let totalNilai = hasilSKD + hasilSKB;
+
+        // Tampilkan hasil ke layar
+        document.getElementById("hasilSKD").textContent = hasilSKD.toFixed(2);
+        document.getElementById("hasilSKB").textContent = hasilSKB.toFixed(2);
+        document.getElementById("totalNilai").textContent =
+          totalNilai.toFixed(2);
+
+        // Tambahkan data peserta ke array, simpan hasil SKD dan SKB
+        peserta.push({
+          nama,
+          hasilSKD: hasilSKD.toFixed(2),
+          hasilSKB: hasilSKB.toFixed(2),
+          totalNilai: totalNilai,
+        });
+        updateRanking();
+      }
+
+      function updateRanking() {
+        // Urutkan peserta berdasarkan total nilai (descending)
+        peserta.sort((a, b) => b.totalNilai - a.totalNilai);
+
+        // Tampilkan ranking di layar
+        let rankingList = document.getElementById("rankingList");
+        rankingList.innerHTML = ""; // Reset isi ranking list
+
+        peserta.forEach((p, index) => {
+          let listItem = document.createElement("li");
+          listItem.textContent = `${p.nama} - Hasil SKD: ${
+            p.hasilSKD
+          }, Hasil SKB: ${p.hasilSKB}, Total: ${p.totalNilai.toFixed(2)}`;
+          rankingList.appendChild(listItem);
+        });
+      }
+    </script>
+  </body>
+</html>
