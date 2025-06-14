@@ -10,7 +10,20 @@ Final Score = (40% x SKD Score) + (60% x SKB Score)
 Based on the final score, the system determines whether a candidate is Passed (Lulus) or Failed (Tidak Lulus), Only Prediction.
 
 ## ⚙️ Built With:
-**HTML
-CSS
-JavaScript**
+**HTML**
+
+**CSS**
+
+**JavaScript**
+</br>
+## 🧑‍💻 Created By
+**Muhammad Reza Anggawirya - Junior Software Engineer**
+
+I'm a passionate web developer focusing on building modern web applications using Laravel and ReactJS. I enjoy creating efficient, clean, and user-friendly systems that help solve real-world problems.
+
+Connect with me:
+
+**GitHub: MRA-goosebumps**
+
+**LinkedIn: Muhammad Reza Anggawirya**
 
